@@ -37,6 +37,186 @@ select:focus,
 textarea:focus {
     outline: 0px;
 }
+.row {
+  margin: 0;
+  padding: 0;
+}
+/* CalltoActionSection */
+.subscribe-section {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
+    url("https://bizweb.dktcdn.net/100/344/954/articles/tam-quan-trong-cua-vi-sinh-trong-ho-thuy-sinh.jpg?v=1575001281837")
+      no-repeat scroll center / cover;
+  padding: 100px 0 100px;
+}
+.subscribe-head h2 {
+  color: #fff;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: 30px;
+  margin: 0 0 13px;
+  text-transform: uppercase;
+}
+.subscribe-head p {
+  color: #fff;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0 0 39px;
+}
+.subscribe-head {
+  text-align: center;
+}
+.form-section input[type="email"] {
+  border: 0 none;
+  border-radius: 25px;
+  color: #9b9b9b;
+  font-size: 16px;
+  font-style: normal;
+  height: 51px;
+  letter-spacing: 0;
+  text-align: center;
+  width: 460px;
+}
+.form-section input[type="submit"] {
+  background: #1cb803;
+  border: 0 none;
+  border-radius: 25px;
+  color: #fff;
+  height: 52px;
+  letter-spacing: 0;
+  margin-left: -60px;
+  padding: 19px 58px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+/* Contact */
+.contactInfo {
+  padding: 70px 0;
+}
+.contact-Box,
+.box-info,
+.info-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box-info {
+  width: 80%;
+  flex-direction: column;
+  padding: 40px 0;
+  box-shadow: 0px 0px 27px 0px rgb(243, 243, 243);
+}
+.info-image {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #1cb803;
+  border-radius: 100px;
+  font-size: 20px;
+  color: #1cb803;
+}
+.box-info h5 {
+  font-weight: bold;
+  font-size: 19px;
+  margin-top: 20px;
+  margin-bottom: 4px;
+}
+.box-info p {
+  font-size: 16px;
+}
+/* Pagination */
+.pagination .page-link {
+  padding: 10px 30px;
+  color: black;
+}
+.page-item.active .page-link {
+  background-color: black;
+  border: 1px solid black;
+}
+/* Rating */
+.rating {
+  margin: 5px 0;
+}
+.rating i {
+  font-size: 12px;
+  color: #ebb450;
+}
+.rating span {
+  margin-left: 10px;
+}
+/* Shop */
+.section {
+  width: 100%;
+  padding-bottom: 6%;
+  padding-top: 2%;
+}
+.sidebar_item {
+  margin-bottom: 35px;
+}
+.sidebar_item h4 {
+  color: #1c1c1c;
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+.sidebar_item ul {
+  margin: 0;
+  padding: 0;
+}
+.sidebar_item ul li {
+  list-style: none;
+  display: flex;
+}
+
+.sidebar_item ul li a {
+  font-size: 16px;
+  color: #000000;
+  line-height: 45px;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+}
+.sidebar_item ul li img {
+  width: 25px;
+  object-fit: contain;
+  margin-left: 20px;
+}
+.shop {
+  margin-bottom: 50px;
+}
+.border-product {
+  padding: 15px;
+  border: 1px solid #f3f3f3;
+  border-radius: 5px;
+}
+.shopBack {
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background-color: #f3fbf7;
+}
+.shopBack img {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+}
+.shoptext {
+  padding-top: 10px;
+}
+.shoptext p a {
+  color: #252525;
+}
+.shoptext h3 {
+  color: #252525;
+  margin-top: 13px;
+  font-weight: bold;
+  font-size: 19px;
+}
+/* display flex */
+.d-flex {
+  display: flex;
+}
+.justify-content-center {
+  justify-content: center;
+}
 
 input:focus,
 select:focus,
@@ -63,12 +243,15 @@ textarea:focus {
 }
 
 .Announcement .col-12 a {
-    color: white;
+    color: #fff;
     margin-right: 2rem;
     font-size: 15px;
 }
-
-
+.Announcement .col-md-6 p {
+  color: #000;
+  /* margin-right: 6rem; */
+  font-size: 15px;
+}
 /* Header */
 
 .header {

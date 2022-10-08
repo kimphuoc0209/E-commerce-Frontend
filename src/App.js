@@ -1,15 +1,18 @@
-import './App.css';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import React from "react";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomeScreen from "./screens/HomeScreen.js";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Web for User</h1>
-      <Header />
-      <Footer />
-
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
