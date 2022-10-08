@@ -111,7 +111,7 @@ const Header = () => {
                                         aria-haspopup="true"
                                         aria-expanded="false"
                                     >
-                                    Hi, Admin Doe
+                                    Hi, Admin Vy
                                     </button>
                                     <div className="dropdown-menu">
                                         <Link className="dropdown-item" to="/profile">
