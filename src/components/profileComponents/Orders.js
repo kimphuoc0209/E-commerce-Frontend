@@ -32,8 +32,8 @@ const Orders = () => {
                                 </a>
                         </td>
                             <td>Paid</td>
-                            <td>Dec 12 2021</td>
-                            <td>$234</td>
+                            <td>Oct 8 2022</td>
+                            <td>23400 VND</td>
                         </tr>
                         {/* Cancelled */}
                         <tr className={"alert-danger"}>
@@ -43,8 +43,8 @@ const Orders = () => {
                                 </a>
                             </td>
                             <td>Not Paid</td>
-                            <td>Dec 12 2021</td>
-                            <td>$34</td>
+                            <td>Oct 8 2022</td>
+                            <td>34000 VND</td>
                         </tr>
                     </tbody>
                 </table>
