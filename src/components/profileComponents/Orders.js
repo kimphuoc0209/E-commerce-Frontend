@@ -31,9 +31,9 @@ const Orders = () => {
                                     1
                                 </a>
                         </td>
-                        <td>Paid</td>
-                        <td>Dec 12 2021</td>
-                        <td>$234</td>
+                            <td>Paid</td>
+                            <td>Dec 12 2021</td>
+                            <td>$234</td>
                         </tr>
                         {/* Cancelled */}
                         <tr className={"alert-danger"}>
