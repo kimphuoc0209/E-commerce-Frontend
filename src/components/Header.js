@@ -13,7 +13,7 @@ const Header = () => {
                             <p>tanvywa@gmail.com</p>
                             </div>
                         </div>
-                        <div classname="col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
+                        <div className="col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
                             <Link to="">
                                 <i className="fab fa-facebook-f"></i>
                             </Link>
