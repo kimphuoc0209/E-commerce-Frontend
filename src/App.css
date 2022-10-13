@@ -187,6 +187,12 @@ textarea:focus {
   padding: 15px;
   border: 1px solid #f3f3f3;
   border-radius: 5px;
+  transition: transform ease-in .1s;
+  will-change: transform;
+}
+.border-product:hover{
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
+  transform: translateY(-3px);
 }
 .shopBack {
   height: 250px;
@@ -242,7 +248,9 @@ textarea:focus {
   margin-right: 2rem;
   font-size: 15px;
 }
-
+.Announcement .col-12 a:hover{
+  color: rgba(0, 0, 0, 0.3);
+}
 /* Header */
 
 .header {
@@ -266,7 +274,9 @@ textarea:focus {
   text-transform: uppercase;
   font-size: 12px;
 }
-
+.search-button:hover {
+  opacity: 0.7;
+}
 .Login-Register a {
   text-transform: uppercase;
   font-size: 15px;
@@ -352,6 +362,31 @@ textarea:focus {
   border-radius: 100px;
   margin-top: -60%;
   box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.377);
+}
+.wizard .nav button {
+  padding: 15px 20px;
+  font-size: 13px;
+  background-color: #ffffff;
+  color: black;
+  width: 100%;
+  text-align: start;
+  border-radius: 0;
+  text-transform: uppercase;
+  border-top: 1px solid #e4e4e4;
+}
+.wizard .nav .active {
+  background-color: #e5fee9;
+  color: black;
+}
+.badge2 {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  color: #ffffff;
 }
 .form {
   padding: 20px 0;
