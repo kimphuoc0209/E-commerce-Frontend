@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./../components/Header";
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const OrderScreen = () => {
   window.scrollTo(0, 0);
@@ -10,7 +11,7 @@ const OrderScreen = () => {
     <>
       <Header />
       <div className="container">
-        <div className="row  order-detail">
+        <div className="row order-detail">
           <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
               <div className="col-md-4 center">
@@ -65,7 +66,8 @@ const OrderScreen = () => {
                   <strong>Deliver to</strong>
                 </h5>
                 <p>
-                  Address: 441/35, Điện Biên Phủ, Phường 26, Quận Bình Thạnh, TP.HCM
+                  Address: 441/35, Điện Biên Phủ, Phường 26, Quận Bình Thạnh,
+                  TP.HCM
                 </p>
                 <div className="bg-danger p-1 col-12">
                   <p className="text-white text-center text-sm-start">
@@ -108,7 +110,7 @@ const OrderScreen = () => {
                   <td>
                     <strong>Products</strong>
                   </td>
-                  <td>$25.000 VND</td>
+                  <td>25.000 VND</td>
                 </tr>
                 <tr>
                   <td>
@@ -131,7 +133,27 @@ const OrderScreen = () => {
               </tbody>
             </table>
             <div className="col-12">
-              <PayPalButton amount={345} />
+              <PayPalScriptProvider options={{ "client-id": "test" }}>
+                <PayPalButtons
+                  createOrder={(data, actions) => {
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          amount: {
+                            value: "1.99",
+                          },
+                        },
+                      ],
+                    });
+                  }}
+                  onApprove={(data, actions) => {
+                    return actions.order.capture().then((details) => {
+                      const name = details.payer.name.given_name;
+                      alert(`Transaction completed by ${name}`);
+                    });
+                  }}
+                />
+              </PayPalScriptProvider>
             </div>
           </div>
         </div>
