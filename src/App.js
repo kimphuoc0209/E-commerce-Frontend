@@ -7,6 +7,8 @@ import ProfileScreen from "./screens/ProfileScreen";
 import OrderScreen from "./screens/OrderScreen";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
+import CartScreen from "./screens/CartScreen";
+import NotFound from "./screens/NotFound";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/order" element={<OrderScreen />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/cart" element={<CartScreen />} />
         </Routes>
       </Router>
     </>
