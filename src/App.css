@@ -21,7 +21,9 @@ a {
 a:hover {
   color: black;
 }
-
+.button_hover:hover{
+  background: #209110;
+}
 i,
 a,
 p,
@@ -94,7 +96,7 @@ textarea:focus {
   text-transform: uppercase;
   font-size: 12px;
 }
-.form-section input[type="submit"]:hover{
+.form-section .button_hover:hover{
   background: #209110;
 }
 /* Contact */
@@ -350,7 +352,22 @@ textarea:focus {
   object-fit: contain;
 }
 /* Payment */
+.payment-container {
+  margin-top: 20px;
+}
+.radio-container {
+  padding: 10px 0;
+  text-align: start;
+}
+.radio-container input {
+  font-size: 17px;
+}
+.radio-container label {
+  padding: 0 20px;
+  font-size: 17px;
+}
 .order-detail p {
+  
   margin-top: 2px;
 }
 .order-detail {
@@ -488,7 +505,8 @@ textarea:focus {
 .login-center {
   padding: 50px 0;
 }
-.Login {
+.Login,
+.Login2 {
   background: #fff;
   border-radius: 5px;
   position: relative;
@@ -507,7 +525,8 @@ textarea:focus {
 .Login input:focus {
   outline: 0px;
 }
-.Login button {
+.Login button,
+.Login2 button {
   width: 100%;
   margin-top: 20px;
   padding: 20px 0;
@@ -517,7 +536,8 @@ textarea:focus {
   text-transform: uppercase;
   color: white;
 }
-.Login button a {
+.Login button a,
+.Login2 button a {
   text-transform: uppercase;
   color: white;
 }
