@@ -9,6 +9,7 @@ import Login from "./screens/Login";
 import Register from "./screens/Register";
 import CartScreen from "./screens/CartScreen";
 import NotFound from "./screens/NotFound";
+import SingleProduct from "./screens/SingleProduct";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/cart" element={<CartScreen />} />
+          <Route path="/products/:id" element={<SingleProduct />} />
         </Routes>
       </Router>
     </>
