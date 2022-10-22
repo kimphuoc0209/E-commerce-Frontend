@@ -412,6 +412,9 @@ textarea:focus {
   background-color: #1cb803;
   color: #ffffff;
 }
+.subtotal-order button a{
+  display: block;
+}
 .subtotal-order button:hover {
   background: #209110;
 }
@@ -540,6 +543,7 @@ textarea:focus {
 .Login2 button a {
   text-transform: uppercase;
   color: white;
+  display: block;
 }
 .Login p {
   margin-top: 30px;

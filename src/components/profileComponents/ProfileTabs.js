@@ -28,7 +28,7 @@ const ProfileTabs = () => {
                         <input className="form-control" type="password" />
                     </div>
                 </div>
-                <button type="submit">Update Profile</button>
+                <button className="button_hover" type="submit">Update Profile</button>
             </form>
         </>
 
