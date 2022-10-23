@@ -11,7 +11,7 @@ const CalltoActionSection = () => {
               <p>Sign up free and get the latest tips.</p>
               <form className="form-section">
                 <input placeholder="Your Email..." name="email" type="email" />
-                <input value="Yes. I want!" name="subscribe" type="submit" />
+                <input className="button_hover" value="Yes. I want!" name="subscribe" type="submit" />
               </form>
             </div>
           </div>
