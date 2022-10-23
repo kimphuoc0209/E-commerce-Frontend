@@ -71,14 +71,11 @@ const SingleProduct = ({ match }) => {
             <h6 className="mb-3">REVIEWS</h6>
             <Message variant={"alert-info mt-3"}>No Reviews</Message>
             <div className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
-              <strong>Admin Doe</strong>
+              <strong>Tran Duong</strong>
               <Rating />
-              <span>Jan 12 2021</span>
+              <span>Oct 21 2022</span>
               <div className="alert alert-info mt-3">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book
+                Good Product. Nice. 
               </div>
             </div>
           </div>
