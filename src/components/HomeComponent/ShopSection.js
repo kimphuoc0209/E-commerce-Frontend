@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import Pagination from "./pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { listProduct } from "../../Redux/Action/ProdctActions";
+import { listProduct } from "../../Redux/Action/ProductActions";
 import Loading from "../LoadingError/Loading";
 import Message from "../LoadingError/Error";
 
@@ -31,7 +31,7 @@ const ShopSection = () => {
                   <Message variant="alert-danger">{error}</Message>
                 ) : (
                   <>
-                    {products.map((product) => (
+                    {products && products.map((product) => (
                       <div
                         className="shop col-lg-4 col-md-6 col-sm-6"
                         key={product._id}

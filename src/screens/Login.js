@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "./../components/Header";
-import { login } from './../Redux/Action/userActions';
-import Message from './../components/LoadingError/Error';
+import { login } from "./../Redux/Action/userActions";
+import Message from "./../components/LoadingError/Error";
 import Loading from "../components/LoadingError/Loading";
 
-const Login = ({ history }) => {
+const Login = () => {
   window.scrollTo(0, 0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const redirect = location.search ? location.search.split("=")[1] : "/";
@@ -20,14 +21,14 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
-    };
-  }, [userInfo, history, redirect]);
-
+      navigate(redirect);
+    }
+  }, [userInfo, navigate, redirect]);
+  
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-  }
+  };
   return (
     <>
       <Header />
@@ -52,7 +53,11 @@ const Login = ({ history }) => {
           />
           <button type="submit">Login</button>
           <p>
-            <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>Create Account</Link>
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+            >
+              Create Account
+            </Link>
           </p>
         </form>
       </div>

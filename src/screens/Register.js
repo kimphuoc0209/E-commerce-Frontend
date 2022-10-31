@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "./../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../Redux/Action/userActions";
 import Message from "../components/LoadingError/Error";
 import Loading from "../components/LoadingError/Loading";
 
-const Register = (history) => {
+const Register = () => {
   window.scrollTo(0, 0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const redirect = location.search ? location.search.split("=")[1] : "/";
@@ -21,14 +22,14 @@ const Register = (history) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
-    };
-  }, [userInfo, history, redirect]);
+      navigate(redirect);
+    }
+  }, [userInfo, navigate, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(register(name, email, password));
-  }
+  };
 
   return (
     <>
@@ -37,25 +38,28 @@ const Register = (history) => {
         {error && <Message variant="alert-danger">{error}</Message>}
         {loading && <Loading />}
 
-        <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
+        <form
+          className="Login col-md-8 col-lg-4 col-11"
+          onSubmit={submitHandler}
+        >
           <input
-            type="text" 
-            placeholder="Username" 
+            type="text"
+            placeholder="Username"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            />
-          <input 
-            type="email" 
+          />
+          <input
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            />
-          <input 
-            type="password" 
-            placeholder="Password" 
+          />
+          <input
+            type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            />
+          />
 
           <button type="submit">Register</button>
           <p>

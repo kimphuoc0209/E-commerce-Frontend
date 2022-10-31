@@ -1,22 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./../components/Header";
 import Rating from "../components/HomeComponent/Rating";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductDetails } from "../Redux/Action/ProdctActions";
+import { listProductDetails } from "../Redux/Action/ProductActions";
 import Loading from "../components/LoadingError/Loading";
 
 
-const SingleProduct = ({ match }) => {
+const SingleProduct = () => {
 
-  const productId = match.params.id;
+  const [productId, setProductId] = useState(null);
+  const params = useParams();
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
   useEffect(() => {
-    dispatch(listProductDetails(productId))
+    if(productId != null) {
+      dispatch(listProductDetails(productId))
+    }
   }, [dispatch, productId])
+  useEffect(()=>{
+    setProductId(params.id)
+  },[params])
 
   return (
     <>
@@ -57,14 +63,14 @@ const SingleProduct = ({ match }) => {
                             {product.countInStock > 0 ? (
                               <span>In Stock</span>
                             ) : (
-                              <span>unavailable</span>
+                              <span>Unavailable</span>
                             )}
                           </div>
                           <div className="flex-box d-flex justify-content-between align-items-center">
                             <h6>Reviews</h6>
                             <Rating
                               value={product.rating}
-                              text={`${product.numReviews} reviews`}
+                              text={`${product.numReview} reviews`}
                             />
                           </div>
                           {product.countInStock > 0 ? (
