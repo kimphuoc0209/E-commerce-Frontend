@@ -1,6 +1,7 @@
 {
   "name": "shop",
   "version": "0.1.0",
+  "proxy": "http://localhost:5000/",
   "private": true,
   "dependencies": {
     "@paypal/react-paypal-js": "^7.8.1",
@@ -16,9 +17,10 @@
     "react-redux": "^8.0.2",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "react-toastify": "^9.0.8",
+    "react-scripts": "4.0.3",
+    "react-toastify": "^8.1.0",
     "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "web-vitals": "^2.1.4"
   },

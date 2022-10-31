@@ -533,7 +533,7 @@ textarea:focus {
 .Login2 button {
   width: 100%;
   margin-top: 20px;
-  
+  padding: 20px;
   border: 0;
   background-color: #1cb803;
   border-radius: 5px;
