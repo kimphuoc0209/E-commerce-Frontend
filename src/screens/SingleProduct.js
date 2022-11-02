@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Header from "./../components/Header";
 import Rating from "../components/HomeComponent/Rating";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../Redux/Action/ProductActions";
 import Loading from "../components/LoadingError/Loading";
 
 
-const SingleProduct = () => {
-
+const SingleProduct = ({ history }) => {
+  const [qty, setQty] = useState(1);
   const [productId, setProductId] = useState(null);
   const params = useParams();
   const dispatch = useDispatch();
@@ -22,7 +22,13 @@ const SingleProduct = () => {
   }, [dispatch, productId])
   useEffect(()=>{
     setProductId(params.id)
-  },[params])
+  },[params]);
+  const navigate = useNavigate();
+  
+  const AddToCartHandle = (e) => {
+    e.preventDefault()
+    navigate(`/cart/${productId}?qty=${qty}`)
+  };
 
   return (
     <>
@@ -77,7 +83,10 @@ const SingleProduct = () => {
                             <>
                               <div className="flex-box d-flex justify-content-between align-items-center">
                                 <h6>Quantity</h6>
-                                <select>
+                                <select 
+                                  value={qty}
+                                  onChange={(e) => setQty(e.target.value)}
+                                >
                                   {[...Array(product.countInStock).keys()].map((x) => (
                                     <option key={x + 1} value={x + 1}>
                                       {x + 1}
@@ -85,7 +94,7 @@ const SingleProduct = () => {
                                   ))}
                                 </select>
                               </div>
-                              <button className="round-black-btn">Add To Cart</button>
+                              <button onClick={AddToCartHandle} className="round-black-btn">Add To Cart</button>
                             </>
                           ) : null}
                         </div>
