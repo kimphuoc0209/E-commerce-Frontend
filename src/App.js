@@ -10,9 +10,9 @@ import Register from "./screens/Register";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
-import CartScreen from "./screens/CartScreen";
 import NotFound from "./screens/NotFound";
 import SingleProduct from "./screens/SingleProduct";
+import CartScreen from "./screens/CartScreen"
 
 function App() {
   return (
@@ -23,13 +23,14 @@ function App() {
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/order" element={<OrderScreen />} />
           <Route path="/placeorder" element={<PlaceOrderScreen />} />
-          <Route path="/shipping" element={<ShippingScreen />} />
+          <Route path="login/shipping" element={<ShippingScreen />} />
           <Route path="/payment" element={<PaymentScreen />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/cart/:productId" element={<CartScreen />} />
           <Route path="/cart" element={<CartScreen />} />
           <Route path="/products/:id" element={<SingleProduct />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>
