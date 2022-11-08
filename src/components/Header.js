@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../Redux/Action/userActions";
 
 const Header = () => {
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart
+
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin
@@ -90,7 +93,7 @@ const Header = () => {
                   }
                   <Link className="/cart" to="cart-mobile-icon">
                     <i className="fas fa-shopping-cart"></i>
-                    <span className="badge">4</span>
+                    <span className="badge">{cartItems.length}</span>
                   </Link>
                 </div>
                 <div className="col-12 d-flex align-items-center">
@@ -170,7 +173,7 @@ const Header = () => {
 
                 <Link to="/cart">
                   <i className="fas fa-shopping-bag"></i>
-                  <span className="badge">4</span>
+                  <span className="badge">{cartItems.length}</span>
                 </Link>
               </div>
             </div>
