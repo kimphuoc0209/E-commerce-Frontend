@@ -544,8 +544,6 @@ textarea:focus {
 .Login2 button a {
   text-transform: uppercase;
   color: white;
-  display: block;
-  padding: 20px 0;
 }
 .Login p {
   margin-top: 30px;
