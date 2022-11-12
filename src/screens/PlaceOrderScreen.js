@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/LoadingError/Error";
+import { createOrder } from "../Redux/Action/OrderActions";
+import { ORDER_CREATE_RESET } from "../Redux/Constants/OrderConstants";
 import Header from "./../components/Header";
+
 
 const PlaceOrderScreen = () => {
   window.scrollTo(0, 0);
-
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userLogin = useSelector((state) => state.userLogin)
@@ -29,8 +32,30 @@ const PlaceOrderScreen = () => {
     Number(cart.taxPrice)
   ).toFixed(2)
   
+    const orderCreate = useSelector((state) => state.orderCreate)
+    const {order,success,error} = orderCreate
+
+    useEffect(() => {
+      if(success){
+        navigate(`/order/${order._id}`);
+        dispatch({type: ORDER_CREATE_RESET});
+      }
+    },[navigate,dispatch,success,order])
+
   const placeOrderHandler = (e) => {
     e.preventDefault();
+    dispatch(
+      createOrder({
+        orderItems:cart.cartItems,
+        shippingAddress:cart.shippingAddress,
+        paymentMethod:cart.paymentMethod,
+        itemsPrice:cart.itemsPrice,
+        shippingPrice:cart.shippingPrice,
+        taxPrice:cart.taxPrice,
+        totalPrice:cart.totalPrice,
+      })
+    );
+    
   };
 
   return (
@@ -163,17 +188,19 @@ const PlaceOrderScreen = () => {
             </table>
             {
               cart.cartItems.length === 0 ? null :(
-                <button type="submit" onClick={placeOrderHandler}>
-                  <Link to="/order" className="text-white">
+                <button type="submit" onClick={placeOrderHandler}>    
                     PLACE ORDER
-                  </Link>
               </button>
               )
             }
            
-            {/* <div className="my-3 col-12">
-                <Message variant="alert-danger">{error}</Message>
-              </div> */}
+            {
+              error && (
+                <div className="my-3 col-12">
+                    <Message variant="alert-danger">{error}</Message>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

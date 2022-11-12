@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
-          <Route path="/order" element={<OrderScreen />} />
+          <Route path="/order/:id" element={<OrderScreen />} />
           <Route path="/placeorder" element={<PlaceOrderScreen />} />
           <Route path="/shipping" element={<ShippingScreen />} />
           <Route path="/login/shipping" element={<ShippingScreen />} />
