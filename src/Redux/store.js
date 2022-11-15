@@ -4,15 +4,18 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { productDetailsReducer, productListReducer } from "./Reducer/ProductReducers";
 import { userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer } from "./Reducer/userReducers";
 import { cartReducer } from "./Reducer/CartReducers";
+import { orderCreateReducer, orderDetailsReducer } from "./Reducer/OrderReducers";
 
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
+    cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     userDetails:userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
-    cart: cartReducer,
+    orderCreate: orderCreateReducer,
+    orderDetails: orderDetailsReducer,
 }) 
 
 // cart
@@ -25,13 +28,20 @@ const userInfoFromLocalStorage = localStorage.getItem("userInfo")
 ? JSON.parse(localStorage.getItem("userInfo"))
 : null;
 
+//shippingAddress
+const shippingAddressFromLocalStorage = localStorage.getItem("shippingAddress") 
+? JSON.parse(localStorage.getItem("shippingAddress"))
+: {};
+
 // initial state
 const initialState = {
-    userLogin: { 
-        userInfo: userInfoFromLocalStorage 
-    },
+    
     cart: {
         cartItems: cartItemsFromLocalStorage,
+        shippingAddress: shippingAddressFromLocalStorage
+    },
+    userLogin: { 
+        userInfo: userInfoFromLocalStorage 
     },
 };
 

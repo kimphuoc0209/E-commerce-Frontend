@@ -405,17 +405,17 @@ textarea:focus {
 }
 .subtotal-order button {
   width: 100%;
-  
+  padding: 15px 0;
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
   background-color: #1cb803;
   color: #ffffff;
 }
-.subtotal-order button a{
+/* .subtotal-order button a{
   display: block;
-  padding: 15px 0;
-}
+ 
+} */
 .subtotal-order button:hover {
   background: #209110;
 }
@@ -544,8 +544,6 @@ textarea:focus {
 .Login2 button a {
   text-transform: uppercase;
   color: white;
-  display: block;
-  padding: 20px 0;
 }
 .Login p {
   margin-top: 30px;
