@@ -9,10 +9,11 @@ import { useParams } from "react-router";
 const HomeScreen = ({ match }) => {
   window.scrollTo(0, 0);
   const keyword = useParams()
+  const pagenumber = useParams()
   return (
     <div>
       <Header />
-      <ShopSection keyword={keyword} />
+      <ShopSection keyword={keyword} pagenumber={pagenumber}/>
       <CalltoActionSection />
       <ContactInfo />
       <Footer />
