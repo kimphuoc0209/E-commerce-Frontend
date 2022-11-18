@@ -20,6 +20,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
+          <Route path="/search/:keyword" element={<HomeScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/order/:id" element={<OrderScreen />} />
           <Route path="/placeorder" element={<PlaceOrderScreen />} />

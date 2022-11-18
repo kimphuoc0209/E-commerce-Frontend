@@ -1,9 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../Redux/Action/userActions";
 
 const Header = () => {
+  const [keyword, setKeyword] = useState()
+  const navigate = useNavigate()
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart
 
@@ -13,6 +16,17 @@ const Header = () => {
   const logoutHandler = () => {
     dispatch(logout())
   }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    if (keyword.trim()) {
+      navigate(`/search/${keyword}`)
+    }
+    else {
+      navigate("/")
+    }
+  } 
+
   return (
     <div>
       {/* Top Header */}
@@ -97,11 +111,12 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="col-12 d-flex align-items-center">
-                  <form className="input-group">
+                  <form onSubmit={submitHandler} className="input-group">
                     <input
                       type="search"
                       className="form-control rounded search"
                       placeholder="Search"
+                      onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button type="submit" className="search-button">
                       search
@@ -120,11 +135,12 @@ const Header = () => {
                 </Link>
               </div>
               <div className="col-md-6 col-8 d-flex align-items-center">
-                <form className="input-group">
+                <form onSubmit={submitHandler} className="input-group">
                   <input
                     type="search"
                     className="form-control rounded search"
                     placeholder="Search"
+                    onChange={(e) => setKeyword(e.target.value)}
                   />
                   <button type="submit" className="search-button">
                     search
