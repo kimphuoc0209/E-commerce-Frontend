@@ -1,21 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "./../components/Header";
 // import { PayPalButton } from "react-paypal-button-v2";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails } from "../Redux/Action/OrderActions";
+import { getOrderDetails, payOrder } from "../Redux/Action/OrderActions";
 import Loading from "../components/LoadingError/Loading";
 import Message from "../components/LoadingError/Error";
 import moment from "moment";
+import axios from "axios";
+import { ORDER_PAY_RESET } from "../Redux/Constants/OrderConstants";
 
 const OrderScreen = () => {
   let params = useParams()
   window.scrollTo(0, 0);
+  const [sdkReady, setSdkReady] = useState(false);
   const orderId = params.id;
   const dispatch = useDispatch()
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails;
+  const orderPay = useSelector((state) => state.orderPay)
+  const { loading: loadingPay, success: successPay} = orderPay;
 
   if(!loading){
     const addDecimals = (num) =>{
@@ -28,9 +33,38 @@ const OrderScreen = () => {
   }
   
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
 
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get("/api/config/paypal");
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `http://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () =>{
+        setSdkReady(true)
+      }
+      document.body.appendChild(script)
+    };
+    if(!order || successPay) {
+      dispatch({type:ORDER_PAY_RESET})
+      dispatch(getOrderDetails(orderId));
+    }
+    else if(!order.isPaid){
+      if(!window.paypal){
+        addPayPalScript()
+      }
+      else {
+        setSdkReady(true)
+      }
+    }
+    
+    
+  }, [dispatch, orderId, successPay, order]);
+
+  const successPaymentHandler=(paymentResult) =>{
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+  }
   return (
     <>
       <Header />
@@ -201,29 +235,45 @@ const OrderScreen = () => {
                 </tr>
               </tbody>
             </table>
-            <div className="col-12">
-              <PayPalScriptProvider options={{ "client-id": "test" }}>
-                <PayPalButtons
-                  createOrder={(data, actions) => {
-                    return actions.order.create({
-                      purchase_units: [
-                        {
-                          amount: {
-                            value: "1.99",
-                          },
-                        },
-                      ],
-                    });
-                  }}
-                  onApprove={(data, actions) => {
-                    return actions.order.capture().then((details) => {
-                      const name = details.payer.name.given_name;
-                      alert(`Transaction completed by ${name}`);
-                    });
-                  }}
-                />
-              </PayPalScriptProvider>
-            </div>
+            {
+              !order.isPaid && (
+                <div className="col-12">
+                  {loadingPay && <Loading/>}
+                  {
+                    !sdkReady ? (
+                      <Loading/>
+                    )
+                    :(
+                      <PayPalScriptProvider options={{ "client-id": "test" }}>
+                      <PayPalButtons
+                        createOrder={(data, actions) => {
+                          return actions.order.create({
+                            purchase_units: [
+                              {
+                                amount: {
+                                  value: order.totalPrice,
+                                  
+                                },
+                                onSuccess: {successPaymentHandler}
+                              },
+                            ],
+                          });
+                        }}
+                        onApprove={(data, actions) => {
+                          return actions.order.capture().then((details) => {
+                            const name = details.payer.name.given_name;
+                            alert(`Transaction completed by ${name}`);
+                          });
+                        }}
+                      />
+                    </PayPalScriptProvider>
+                    )
+                  }
+
+              </div>
+              )
+            }
+ 
           </div>
         </div>
             </>
