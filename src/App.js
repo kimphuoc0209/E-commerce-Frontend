@@ -20,7 +20,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
-          <Route path="/search/:keyword" element={<HomeScreen />} />
+          <Route path="/search/:keyword" element={<HomeScreen />} exact />
           <Route path="/page/:pagenumber" element={<HomeScreen />} />
           <Route path="/search/:keyword/page/:pageNumber" element={<HomeScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
