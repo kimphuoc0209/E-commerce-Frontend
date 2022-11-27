@@ -244,7 +244,7 @@ const OrderScreen = () => {
                       <Loading/>
                     )
                     :(
-                      <PayPalScriptProvider options={{ "client-id": "test" }}>
+                      <PayPalScriptProvider  options={{ "client-id": "AWW792qUHndNhBtvR2VJ0yFa40Bb3vv5mhRLgobUIhIO8k9LpzNRAEMNRoiE_XnDSBc3xQyjGJThCpSE" }}>
                       <PayPalButtons
                         createOrder={(data, actions) => {
                           return actions.order.create({
@@ -254,11 +254,12 @@ const OrderScreen = () => {
                                   value: order.totalPrice,
                                   
                                 },
-                                onSuccess: {successPaymentHandler}
+                               
                               },
                             ],
                           });
                         }}
+                        onSuccess= {successPaymentHandler}
                         onApprove={(data, actions) => {
                           return actions.order.capture().then((details) => {
                             const name = details.payer.name.given_name;
