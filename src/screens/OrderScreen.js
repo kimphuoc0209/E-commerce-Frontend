@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "./../components/Header";
 // import { PayPalButton } from "react-paypal-button-v2";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails, payOrder } from "../Redux/Action/OrderActions";
+import { getOrderDetails} from "../Redux/Action/OrderActions";
 import Loading from "../components/LoadingError/Loading";
 import Message from "../components/LoadingError/Error";
 import moment from "moment";
@@ -20,7 +20,7 @@ import {
 const OrderScreen = () => {
   let params = useParams();
   window.scrollTo(0, 0);
-  const [sdkReady, setSdkReady] = useState(false);
+  // const [sdkReady, setSdkReady] = useState(false);
   const orderId = params.id;
   const dispatch = useDispatch();
 
