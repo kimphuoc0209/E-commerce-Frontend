@@ -7,9 +7,9 @@ import { logout } from "./userActions";
 export const createOrder = (order) => async (dispatch, getState) => {
     try {
         dispatch({type: ORDER_CREATE_REQUEST })
-    const {
-        userLogin:{ userInfo },
-    } = getState();
+        const {
+            userLogin:{ userInfo },
+        } = getState();
     
         const config = {
             headers: {
@@ -52,6 +52,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
                Authorization: `Bearer ${userInfo.token}`
             },
         };
+        console.log("co goi api hum");
         const { data } = await axios.get( `/api/orders/${id}`, config);
         dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
     } catch (error) {
