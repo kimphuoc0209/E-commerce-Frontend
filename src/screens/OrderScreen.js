@@ -102,13 +102,18 @@ const OrderScreen = () => {
     };
 
     if (!order || successPay) {
-      dispatch(getOrderDetails(orderId));
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch(getOrderDetails(orderId));
     } else {
       loadPaypalScript();
     }
+    console.log("orderid nao zi", orderId);
   }, [dispatch, paypalDispatch, userInfo, orderId, successPay, order]);
-
+if(order){
+  console.log("don nao day", order);
+} else{
+  console.log("render order");
+}
   return (
     <>
       <Header />

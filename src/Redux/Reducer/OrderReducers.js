@@ -33,6 +33,10 @@ export const orderDetailsReducer = (
   state = { loading: true, orderItems: [], shippingAddress: {} },
   action
 ) => {
+  console.log("orderDetailsReducer nè 1", action.payload);
+  console.log("orderDetailsReducer nè 2", action.type);
+  console.log("orderDetailsReducer nè 3", state);
+
   switch (action.type) {
     case ORDER_DETAILS_REQUEST:
       return { ...state, loading: true };
