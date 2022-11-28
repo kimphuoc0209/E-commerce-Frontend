@@ -2,20 +2,79 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "./../components/Header";
 // import { PayPalButton } from "react-paypal-button-v2";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails } from "../Redux/Action/OrderActions";
 import Loading from "../components/LoadingError/Loading";
 import Message from "../components/LoadingError/Error";
 import moment from "moment";
+import axios from "axios";
+import { logout } from "../Redux/Action/userActions";
+import {
+  ORDER_PAY_FAIL,
+  ORDER_PAY_REQUEST,
+  ORDER_PAY_RESET,
+  ORDER_PAY_SUCCESS,
+} from "../Redux/Constants/OrderConstants";
 
 const OrderScreen = () => {
   let params = useParams();
   window.scrollTo(0, 0);
   const orderId = params.id;
   const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
+
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
+  function createOrder(data, actions) {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: { value: order.totalPrice },
+          },
+        ],
+      })
+      .then((orderID) => {
+        return orderID;
+      });
+  }
+
+  function onApprove(data, actions) {
+    return actions.order.capture().then(async function (details) {
+      try {
+        dispatch({ type: ORDER_PAY_REQUEST });
+        const { data } = await axios.put(
+          `/api/orders/${order._id}/pay`,
+          details,
+          {
+            headers: { Authorization: `Bearer ${userInfo.token}` },
+          }
+        );
+        dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+      } catch (error) {
+        const message =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        if (message === "Not authorized, token failed") {
+          dispatch(logout());
+        }
+        dispatch({
+          type: ORDER_PAY_FAIL,
+          payload: message,
+        });
+      }
+    });
+  }
 
   if (!loading) {
     const addDecimals = (num) => {
@@ -28,8 +87,27 @@ const OrderScreen = () => {
   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
+    const loadPaypalScript = async () => {
+      const { data: clientId } = await axios.get("/api/config/paypal", {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+      paypalDispatch({
+        type: "resetOptions",
+        value: {
+          "client-id": clientId,
+          currency: "USD",
+        },
+      });
+      paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+    };
+
+    if (!order || successPay) {
+      dispatch(getOrderDetails(orderId));
+      dispatch({ type: ORDER_PAY_RESET });
+    } else {
+      loadPaypalScript();
+    }
+  }, [dispatch, paypalDispatch, userInfo, orderId, successPay, order]);
 
   return (
     <>
@@ -188,29 +266,21 @@ const OrderScreen = () => {
                     </tr>
                   </tbody>
                 </table>
-                <div className="col-12">
-                  <PayPalScriptProvider options={{ "client-id": "test" }}>
-                    <PayPalButtons
-                      createOrder={(data, actions) => {
-                        return actions.order.create({
-                          purchase_units: [
-                            {
-                              amount: {
-                                value: "1.99",
-                              },
-                            },
-                          ],
-                        });
-                      }}
-                      onApprove={(data, actions) => {
-                        return actions.order.capture().then((details) => {
-                          const name = details.payer.name.given_name;
-                          alert(`Transaction completed by ${name}`);
-                        });
-                      }}
-                    />
-                  </PayPalScriptProvider>
-                </div>
+                {!order.isPaid && (
+                  <>
+                    {loadingPay ? (
+                      <Loading />
+                    ) : (
+                      <div className="col-12">
+                        <PayPalButtons
+                          createOrder={createOrder}
+                          onApprove={onApprove}
+                        />
+                      </div>
+                    )}
+                    {/* {loadingPay&&(<Loading/>)} */}
+                  </>
+                )}
               </div>
             </div>
           </>
