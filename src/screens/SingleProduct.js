@@ -105,7 +105,7 @@ const SingleProduct = () => {
                       <h6>Reviews</h6>
                       <Rating
                         value={product.rating}
-                        text={`${product.numReviews} reviews`}
+                        text={`${product.numReview} reviews`}
                       />
                     </div>
                     {product.countInStock > 0 ? (
@@ -151,7 +151,7 @@ const SingleProduct = () => {
                     <div key={review._id} className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
                       <strong>{review.name}</strong>
                       <Rating value={review.rating} />
-                      <span>{moment(review.createAt).calendar()}</span>
+                      <span>{moment(review.createAt).format("MMMM Do YYYY")}</span>
                       <div className="alert alert-info mt-3">
                         {review.comment}
                       </div>
