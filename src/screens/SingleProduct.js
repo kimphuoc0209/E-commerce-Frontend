@@ -22,7 +22,7 @@ const SingleProduct = () => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
-  const userLogin = useSelector((state) => state.productDetails);
+  const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
@@ -105,7 +105,7 @@ const SingleProduct = () => {
                       <h6>Reviews</h6>
                       <Rating
                         value={product.rating}
-                        text={`${product.numReview} reviews`}
+                        text={`${product.numReviews} reviews`}
                       />
                     </div>
                     {product.countInStock > 0 ? (
@@ -148,7 +148,7 @@ const SingleProduct = () => {
                   )}
                 {
                   product.reviews.map((review) => (
-                    <div key={review.id} className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
+                    <div key={review._id} className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
                       <strong>{review.name}</strong>
                       <Rating value={review.rating} />
                       <span>{moment(review.createAt).calendar()}</span>
