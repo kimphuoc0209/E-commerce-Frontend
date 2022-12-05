@@ -16,7 +16,7 @@ const PaymentScreen = () => {
     
   }
 
-  const [paymentMethod,setPaymentMethod] =useState("PayPal")
+  const [paymentMethod,setPaymentMethod] =useState("COD")
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
@@ -36,7 +36,7 @@ const PaymentScreen = () => {
           <div className="payment-container">
             <div className="radio-container">
               <input className="form-check-input" 
-              type="radio" value={paymentMethod} 
+              type="radio" value={"Paypal"} 
               onChange={(e) => setPaymentMethod(e.target.value)}
               />
               <label className="form-check-label">PayPal or Credit Card</label>

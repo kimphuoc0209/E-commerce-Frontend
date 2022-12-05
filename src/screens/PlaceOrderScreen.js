@@ -23,8 +23,8 @@ const PlaceOrderScreen = () => {
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
 
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
-  cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
+  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 5);
+  cart.taxPrice = addDecimals(Number((0.05 * cart.itemsPrice).toFixed(2)));
   cart.totalPrice = (
     Number(cart.itemsPrice) +
     Number(cart.shippingPrice) +
@@ -107,8 +107,8 @@ const PlaceOrderScreen = () => {
                   <strong>Deliver to</strong>
                 </h5>
                 <p>
-                  Address: {cart.shippingAddress.city},{" "}
-                  {cart.shippingAddress.address},
+                  Address: {cart.shippingAddress.address},{" "}
+                  {cart.shippingAddress.city},
                 </p>
                 <p>POX: {cart.shippingAddress.postalCode}</p>
               </div>

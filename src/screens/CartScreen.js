@@ -8,7 +8,7 @@ const CartScreen = () => {
   window.scrollTo(0, 0);
   const { productId } = useParams();
   const location = useLocation();
-  //ai code cái đoạn này nhìn chán đời quá zị
+ 
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
   const dispatch = useDispatch();
 
