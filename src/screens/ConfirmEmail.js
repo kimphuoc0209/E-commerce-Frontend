@@ -1,10 +1,7 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 
 function ConfirmEmail() {
-  const location = useLocation();
-  const email = location.search ? location.search.split("=")[1] : null;
   return (
     <>
       <Header />
@@ -12,7 +9,7 @@ function ConfirmEmail() {
         <h1>Account Confirmation</h1>
         <p className="lead w-lg-50 mx-auto">
           An email with your account confirmation link has been sent to your
-          email: <b style={{ color: "red" }}>{email}</b>
+          email.
         </p>
         <p className="lead w-lg-50 mx-auto">
           Check your email and comeback to proceed!

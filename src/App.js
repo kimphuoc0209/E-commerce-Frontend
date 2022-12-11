@@ -71,7 +71,7 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/emailsent/:userEmail" element={<ConfirmEmail />} />
+          <Route path="/register/emailsent" element={<ConfirmEmail />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cart/:productId" element={<CartScreen />} />
           <Route path="/cart" element={<CartScreen />} />
@@ -84,4 +84,3 @@ function App() {
 }
 
 export default App;
-//
