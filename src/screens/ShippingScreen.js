@@ -41,7 +41,7 @@ const ShippingScreen = () => {
            required
            onChange = {(e) => setCity(e.target.value)}
           />
-          <input type="text" placeholder="Enter postal code" 
+          <input type="text" placeholder="Enter phone number" 
            value={postalCode}
            required
            onChange = {(e) => setPostalCode(e.target.value)}

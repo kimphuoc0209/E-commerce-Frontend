@@ -186,7 +186,7 @@ const OrderScreen = () => {
                       Address: {order.shippingAddress.city},{" "}
                       {order.shippingAddress.address},
                     </p>
-                    <p>POX: {order.shippingAddress.postalCode}</p>
+                    <p>Phone number: {order.shippingAddress.postalCode}</p>
                     {order.isDelivered ? (
                       <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
@@ -266,7 +266,7 @@ const OrderScreen = () => {
                     </tr>
                   </tbody>
                 </table>
-                {!order.isPaid && (
+                {!order.isPaid && order.paymentMethod === "Paypal" ? (
                   <>
                     {loadingPay ? (
                       <Loading />
@@ -278,9 +278,23 @@ const OrderScreen = () => {
                         />
                       </div>
                     )}
-                    {/* {loadingPay&&(<Loading/>)} */}
                   </>
-                )}
+                ) : null}
+                {/* {!order.isPaid ? (
+                  <Link
+                    to="#"
+                    // onClick={() => cancelHandler(order._id)}
+                    className="btn btn-outline-danger p-3 pb-3 mb-3 col-md-6 w-100"
+                  >
+                    <p>Cancel Order</p>
+                  </Link>
+                ) : (
+                  <div className="bg-danger p-3 pb-3 mb-3 col-12">
+                    <p className="text-white text-center text-sm-cener ">
+                      Canceled
+                    </p>
+                  </div>
+                )} */}
               </div>
             </div>
           </>

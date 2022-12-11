@@ -18,7 +18,7 @@ const Footer = () =>{
                 <div className="card-name">
                 <img
                     alt="paypal"
-                     src="https://pbs.twimg.com/media/EfTZlEnWAAMn1lX.png"
+                     src="https://1000logos.net/wp-content/uploads/2021/04/Paypal-logo.png"
                 />
                 </div>
                 <div className="card-name">
