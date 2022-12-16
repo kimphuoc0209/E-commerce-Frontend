@@ -9,14 +9,13 @@ const PaymentScreen = () => {
 
   let navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
-  const {shippingAddress} = cart;
+  const { shippingAddress } = cart;
 
   if (!shippingAddress) {
     navigate("/shipping");
-    
   }
 
-  const [paymentMethod,setPaymentMethod] =useState("COD")
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
@@ -35,16 +34,25 @@ const PaymentScreen = () => {
           <h6>SELECT PAYMENT METHOD</h6>
           <div className="payment-container">
             <div className="radio-container">
-              <input className="form-check-input" 
-              type="radio" value={"Paypal"} 
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              <input
+                className="form-check-input"
+                type="radio"
+                value={"Paypal"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
               />
               <label className="form-check-label">PayPal or Credit Card</label>
+              <input
+                className="form-check-input"
+                type="radio"
+                value={"COD"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              <label className="form-check-label">COD</label>
             </div>
           </div>
 
           <button className="button_hover" type="submit">
-              Continue
+            Continue
           </button>
         </form>
       </div>

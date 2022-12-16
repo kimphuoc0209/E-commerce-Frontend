@@ -15,16 +15,22 @@ const Login = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirectShipper = location.search
+    ? location.search.split("=")[1]
+    : "/shipper";
 
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo && !userInfo.isShipper) {
       navigate(redirect);
     }
-  }, [userInfo, navigate, redirect]);
-  
+    if (userInfo && userInfo.isShipper) {
+      navigate(redirectShipper);
+    }
+  }, [userInfo, navigate, redirect, redirectShipper]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
@@ -41,12 +47,14 @@ const Login = () => {
         >
           <input
             type="email"
+            required
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
+            required
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

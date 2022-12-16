@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Header from "./../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../Redux/Action/userActions";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
 import Message from "../components/LoadingError/Error";
 import Loading from "../components/LoadingError/Loading";
+import { Register } from "../Redux/Action/shipperActions";
 import { toast } from "react-toastify";
 import Toast from "../components/LoadingError/Toast";
 
-const Register = () => {
+const ShipperRegister = () => {
   window.scrollTo(0, 0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,13 +18,9 @@ const Register = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const location = useLocation();
-  // const redirect = location.search
-  //   ? location.search.split("=")[1]
-  //   : "/register/emailsent";
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { error, loading, userInfo } = userRegister;
+  const shipperRegister = useSelector((state) => state.shipperRegister);
+  const { error, loading, userInfo } = shipperRegister;
 
   const toastId = React.useRef(null);
 
@@ -47,7 +44,7 @@ const Register = () => {
         toastId.current = toast.error("Password does not match", Toastobjects);
       }
     } else {
-      dispatch(register(name, email, password));
+      dispatch(Register(name, email, password));
     }
   };
 
@@ -56,7 +53,7 @@ const Register = () => {
       <Toast />
       <Header />
       <div className="container text-center">
-        <h1>User Register</h1>
+        <h1>Shipper Register</h1>
       </div>
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
         {error && <Message variant="alert-danger">{error}</Message>}
@@ -100,11 +97,10 @@ const Register = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-
           <button type="submit">Register</button>
           <p>
-            <Link to={`/register/shipper`}>
-              Register as Shipper <strong>Now</strong>
+            <Link to={`/register`}>
+              Register as User <strong>Now</strong>
             </Link>
           </p>
         </form>
@@ -113,4 +109,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ShipperRegister;

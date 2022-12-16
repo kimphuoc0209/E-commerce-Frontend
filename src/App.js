@@ -16,6 +16,11 @@ import SingleProduct from "./screens/SingleProduct";
 import CartScreen from "./screens/CartScreen";
 import PrivateRouter from "./PrivateRouter";
 import ConfirmEmail from "./screens/ConfirmEmail";
+import ShipperRegister from "./screens/ShipperRegister";
+import ShipperHome from "./screens/ShipperHome";
+import ShipperRouter from "./ShipperRouter";
+import ShipperOrder from "./screens/ShipperOrder";
+import ShipperProfileScreen from "./screens/ShipperProfileScreen";
 
 function App() {
   return (
@@ -70,8 +75,33 @@ function App() {
               </PrivateRouter>
             }
           />
+          <Route
+            path="/shipper"
+            element={
+              <ShipperRouter>
+                <ShipperHome />
+              </ShipperRouter>
+            }
+          />
+          <Route
+            path="/shipper/order/:id"
+            element={
+              <ShipperRouter>
+                <ShipperOrder />
+              </ShipperRouter>
+            }
+          />
+          <Route
+            path="/shipper/profile"
+            element={
+              <ShipperRouter>
+                <ShipperProfileScreen />
+              </ShipperRouter>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register/emailsent" element={<ConfirmEmail />} />
+          <Route path="/register/shipper" element={<ShipperRegister />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cart/:productId" element={<CartScreen />} />
           <Route path="/cart" element={<CartScreen />} />

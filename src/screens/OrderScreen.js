@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "./../components/Header";
-// import { PayPalButton } from "react-paypal-button-v2";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails } from "../Redux/Action/OrderActions";
@@ -187,19 +186,56 @@ const OrderScreen = () => {
                       {order.shippingAddress.address},
                     </p>
                     <p>Phone number: {order.shippingAddress.postalCode}</p>
-                    {order.isDelivered ? (
+                    {order.isVerified ? (
                       <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
-                          Delivered on {moment(order.deliveredAt).calendar()}
+                          Order Confirmed At:{" "}
+                          {moment(order.verifiedAt).format(
+                            "MMM Do YYYY, h:mm:ss A"
+                          )}
                         </p>
                       </div>
                     ) : (
                       <div className="bg-danger p-2 col-12">
                         <p className="text-white text-center text-sm-start">
-                          Not Delivered
+                          Not Confirm
                         </p>
                       </div>
                     )}
+                    {order.confirmShipping ? (
+                      <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                          Picking Up Order
+                        </p>
+                      </div>
+                    ) : null}
+                    {order.isPicked ? (
+                      <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                          Successful Pick Up At:{" "}
+                          {moment(order.pickedAt).format(
+                            "MMM Do YYYY, h:mm:ss A"
+                          )}
+                        </p>
+                      </div>
+                    ) : null}
+                    {order.isShipping ? (
+                      <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                          Delivery In Progress
+                        </p>
+                      </div>
+                    ) : null}
+                    {order.isDelivered ? (
+                      <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                          Delivery Successful At:{" "}
+                          {moment(order.deliveredAt).format(
+                            "MMM Do YYYY, h:mm:ss A"
+                          )}
+                        </p>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>

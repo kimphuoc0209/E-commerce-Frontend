@@ -1,31 +1,30 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../Redux/Action/userActions";
 
 const Header = () => {
-  const [keyword, setKeyword] = useState()
-  const navigate = useNavigate()
+  const [keyword, setKeyword] = useState();
+  const navigate = useNavigate();
 
   const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart
+  const { cartItems } = cart;
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin
+  const { userInfo } = userLogin;
   const logoutHandler = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/search/${keyword}`)
+      navigate(`/search/${keyword}`);
+    } else {
+      navigate("/");
     }
-    else {
-      navigate("/")
-    }
-  } 
+  };
 
   return (
     <div>
@@ -70,44 +69,54 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-end Login-Register">
-                  {
-                    userInfo ? (
-                      <div className="btn-group">
-                        <button type="button" className="name-button droptown-toggle"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i className="fas fa-user"></i>
-                        </button>
-                        <div className="dropdown-menu">
-                          <Link className="dropdown-item" to="/profile">
-                            Profile
-                          </Link>
-                          <Link className="dropdown-item" to="#" onClick={logoutHandler}>
-                            Logout
-                          </Link>
-                        </div>
+                  {userInfo ? (
+                    <div className="btn-group">
+                      <button
+                        type="button"
+                        className="name-button droptown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i className="fas fa-user"></i>
+                      </button>
+                      <div className="dropdown-menu">
+                        <Link className="dropdown-item" to="/profile">
+                          Profile
+                        </Link>
+                        <Link
+                          className="dropdown-item"
+                          to="#"
+                          onClick={logoutHandler}
+                        >
+                          Logout
+                        </Link>
                       </div>
-                    )
-                      :
-                      (
-                        <div className="btn-group">
-                          <button type="button" className="name-button droptown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i className="fas fa-user"></i>
-                          </button>
-                          <div className="dropdown-menu">
-                            <Link className="dropdown-item" to="/login">
-                              Login
-                            </Link>
-                            <Link className="dropdown-item" to="/register">
-                              Register
-                            </Link>
-                          </div>
-                        </div>
-                      )
-                  }
-                  <Link className="/cart" to="cart-mobile-icon">
+                    </div>
+                  ) : (
+                    <div className="btn-group">
+                      <button
+                        type="button"
+                        className="name-button droptown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i className="fas fa-user"></i>
+                      </button>
+                      <div className="dropdown-menu">
+                        <Link className="dropdown-item" to="/login">
+                          Login
+                        </Link>
+                        <Link className="dropdown-item" to="/register">
+                          Register
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                  <Link className="cart-mobile-icon" to="/cart">
                     <i className="fas fa-shopping-cart"></i>
-                    <span className="badge">{cartItems.length}</span>
+                    <span className="badge1">{cartItems.length}</span>
                   </Link>
                 </div>
                 <div className="col-12 d-flex align-items-center">
@@ -148,48 +157,57 @@ const Header = () => {
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
+                {userInfo ? (
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="name-button dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      {userInfo.name}
+                    </button>
+                    {userInfo.isShipper ? (
+                      <div className="dropdown-menu">
+                        <Link className="dropdown-item" to="/shipper/profile">
+                          My Orders
+                        </Link>
 
-                {
-                  userInfo ? 
-                  (
-                    <div className="btn-group">
-                      <button
-                        type="button"
-                        className="name-button dropdown-toggle"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        {userInfo.name}
-                      </button>
+                        <Link
+                          className="dropdown-item"
+                          to="#"
+                          onClick={logoutHandler}
+                        >
+                          Logout
+                        </Link>
+                      </div>
+                    ) : (
                       <div className="dropdown-menu">
                         <Link className="dropdown-item" to="/profile">
                           Profile
                         </Link>
 
-                        <Link className="dropdown-item" to="#"
-                        onClick={logoutHandler}>
+                        <Link
+                          className="dropdown-item"
+                          to="#"
+                          onClick={logoutHandler}
+                        >
                           Logout
                         </Link>
                       </div>
-                    </div>
-                  )
-                  :
-                  (
-                    <>
-                      <Link to="/register">
-                        Register
-                      </Link>
-                      <Link to="/login">
-                        Login
-                      </Link>
-                    </>  
-                  )
-                }
+                    )}
+                  </div>
+                ) : (
+                  <>
+                    <Link to="/register">Register</Link>
+                    <Link to="/login">Login</Link>
+                  </>
+                )}
 
                 <Link to="/cart">
                   <i className="fas fa-shopping-bag"></i>
-                  <span className="badge">{cartItems.length}</span>
+                  <span className="badge1">{cartItems.length}</span>
                 </Link>
               </div>
             </div>
