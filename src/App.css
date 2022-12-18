@@ -57,7 +57,7 @@ textarea:focus {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
     url("https://bizweb.dktcdn.net/100/344/954/articles/tam-quan-trong-cua-vi-sinh-trong-ho-thuy-sinh.jpg?v=1575001281837")
       no-repeat scroll center / cover;
-  padding: 100px 0 100px;
+  padding: 300px 0 100px;
 }
 .subscribe-head h2 {
   color: #fff;

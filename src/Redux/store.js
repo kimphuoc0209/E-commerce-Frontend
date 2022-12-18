@@ -14,6 +14,7 @@ import {
 } from "./Reducer/userReducers";
 import { cartReducer } from "./Reducer/CartReducers";
 import {
+  orderCancelReducer,
   orderCreateReducer,
   orderDetailsReducer,
   orderListMyReducer,
@@ -49,6 +50,7 @@ const reducer = combineReducers({
   shipperShipping: shipperShippingReducer,
   shipperDeliver: shipperDeliveredReducer,
   shipperOrderList: orderListShipperReducer,
+  orderCancel: orderCancelReducer,
 });
 
 // cart

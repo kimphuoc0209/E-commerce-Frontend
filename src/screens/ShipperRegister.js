@@ -67,7 +67,7 @@ const ShipperRegister = () => {
             type="text"
             placeholder="Username"
             pattern="[A-Za-z0-9]{6,15}"
-            title="Username must contain letters, numbers only and about 6-15 characters in length"
+            // title="Username must contain letters, numbers only and about 6-15 characters in length"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}

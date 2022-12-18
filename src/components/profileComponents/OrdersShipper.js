@@ -38,7 +38,7 @@ const OrdersShipper = (props) => {
                       }`}
                       key={order._id}
                     >
-                      <td>{order.orderId.user}</td>
+                      <td>{order.user}</td>
                       <td>
                         <a
                           href={`/shipper/order/${order.orderId}`}
@@ -49,8 +49,8 @@ const OrdersShipper = (props) => {
                       </td>
                       <td>{order.isPaid ? <>Paid</> : <>Not Paid</>}</td>
                       <td>
-                        {order.orderId.isDelivered
-                          ? moment(order.orderId.deliveredAt).calendar()
+                        {order.isDelivered
+                          ? moment(order.deliveredAt).calendar()
                           : <>Not Delivery</>}
                       </td>
                       <td>${order.totalPrice}</td>

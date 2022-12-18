@@ -28,7 +28,7 @@ const ShipperProfileScreen = () => {
       <Sidebar />
       <main className="main-wrap">
         <Header />
-        <section className="content-main" style={{ maxWidth: "1600px" }}>
+        <section className="content-main" >
           <div className="container mt-lg-12 mt-3">
             <div className="row align-items-start">
               {/* panels */}

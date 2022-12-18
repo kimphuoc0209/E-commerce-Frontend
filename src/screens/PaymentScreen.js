@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { savePaymentMethod } from "../Redux/Action/cartActions";
 import Header from "./../components/Header";
+import { toast } from "react-toastify";
+import Toast from "../components/LoadingError/Toast";
 
 const PaymentScreen = () => {
   window.scrollTo(0, 0);
@@ -17,14 +19,33 @@ const PaymentScreen = () => {
 
   const [paymentMethod, setPaymentMethod] = useState("");
 
+  const toastId = React.useRef(null);
+
+  const Toastobjects = {
+    pauseOnFocusLoss: false,
+    draggable: false,
+    pauseOnHover: false,
+    autoClose: 2000,
+  };
+
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(savePaymentMethod(paymentMethod));
-    navigate("/placeorder");
+    if (!paymentMethod) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.error(
+          "Please choose payment method",
+          Toastobjects
+        );
+      }
+    } else {
+      dispatch(savePaymentMethod(paymentMethod));
+      navigate("/placeorder");
+    }
   };
   return (
     <>
+      <Toast />
       <Header />
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form
@@ -37,6 +58,7 @@ const PaymentScreen = () => {
               <input
                 className="form-check-input"
                 type="radio"
+                name="payment"
                 value={"Paypal"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
@@ -44,6 +66,7 @@ const PaymentScreen = () => {
               <input
                 className="form-check-input"
                 type="radio"
+                name="payment"
                 value={"COD"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />

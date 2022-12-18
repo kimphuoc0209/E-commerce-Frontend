@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Header from "./../components/Header";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails } from "../Redux/Action/OrderActions";
+import { cancelOrder, getOrderDetails } from "../Redux/Action/OrderActions";
 import Loading from "../components/LoadingError/Loading";
 import Message from "../components/LoadingError/Error";
 import moment from "moment";
@@ -108,6 +108,11 @@ const OrderScreen = () => {
     }
   }, [dispatch, paypalDispatch, userInfo, orderId, successPay, order]);
 
+  const cancelHandler = () => {
+    dispatch(cancelOrder(order));
+    dispatch(getOrderDetails(orderId));
+  };
+
   return (
     <>
       <Header />
@@ -186,6 +191,7 @@ const OrderScreen = () => {
                       {order.shippingAddress.address},
                     </p>
                     <p>Phone number: {order.shippingAddress.postalCode}</p>
+
                     {order.isVerified ? (
                       <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
@@ -196,11 +202,21 @@ const OrderScreen = () => {
                         </p>
                       </div>
                     ) : (
-                      <div className="bg-danger p-2 col-12">
-                        <p className="text-white text-center text-sm-start">
-                          Not Confirm
-                        </p>
-                      </div>
+                      <>
+                        {order.cancelOrder ? (
+                          <div className="bg-danger p-2 col-12">
+                            <p className="text-white text-center text-sm-start">
+                              Order Canceled
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="bg-danger p-2 col-12">
+                            <p className="text-white text-center text-sm-start">
+                              Not Confirm
+                            </p>
+                          </div>
+                        )}
+                      </>
                     )}
                     {order.confirmShipping ? (
                       <div className="bg-info p-2 col-12">
@@ -302,7 +318,9 @@ const OrderScreen = () => {
                     </tr>
                   </tbody>
                 </table>
-                {!order.isPaid && order.paymentMethod === "Paypal" ? (
+                {!order.isPaid &&
+                order.paymentMethod === "Paypal" &&
+                !order.cancelOrder ? (
                   <>
                     {loadingPay ? (
                       <Loading />
@@ -316,21 +334,15 @@ const OrderScreen = () => {
                     )}
                   </>
                 ) : null}
-                {/* {!order.isPaid ? (
+                {!order.isPaid && !order.cancelOrder ? (
                   <Link
                     to="#"
-                    // onClick={() => cancelHandler(order._id)}
+                    onClick={cancelHandler}
                     className="btn btn-outline-danger p-3 pb-3 mb-3 col-md-6 w-100"
                   >
                     <p>Cancel Order</p>
                   </Link>
-                ) : (
-                  <div className="bg-danger p-3 pb-3 mb-3 col-12">
-                    <p className="text-white text-center text-sm-cener ">
-                      Canceled
-                    </p>
-                  </div>
-                )} */}
+                ) : null}
               </div>
             </div>
           </>
