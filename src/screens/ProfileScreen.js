@@ -38,7 +38,7 @@ useEffect(() => {
                     <strong>{userInfo.name}</strong>
                   </h5>
                   <span className="author-card-position">
-                    <>Joined {moment(userInfo.createdAT).format('LL')}</>
+                    <>Joined {moment(userInfo.createdAt).format('LL')}</>
                   </span>
                 </div>
               </div>

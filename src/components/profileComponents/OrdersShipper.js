@@ -1,9 +1,10 @@
 import moment from "moment";
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Message from "../LoadingError/Error";
 import Loading from "../LoadingError/Loading";
-const Orders = (props) => {
+
+const OrdersShipper = (props) => {
   const { loading, error, orders } = props;
   return (
     <div className="d-flex justify-content-center align-items-center flex-column">
@@ -16,24 +17,16 @@ const Orders = (props) => {
           {orders.length === 0 ? (
             <div className="col-12 alert alert-info text-center mt-3">
               No Orders
-              <Link
-                className="btn btn-success mx-2 px-3 py-2"
-                to="/"
-                style={{
-                  fontSize: "12px",
-                }}
-              >
-                START SHOPPING
-              </Link>
             </div>
           ) : (
             <div className="table-responsive">
               <table className="table">
                 <thead>
                   <tr>
+                    <th>Customer</th>
                     <th>ID</th>
                     <th>STATUS</th>
-                    <th>DATE</th>
+                    <th>DELIVERY</th>
                     <th>TOTAL</th>
                   </tr>
                 </thead>
@@ -45,24 +38,20 @@ const Orders = (props) => {
                       }`}
                       key={order._id}
                     >
+                      <td>{order.user}</td>
                       <td>
-                        <a href={`/order/${order._id}`} className="link">
-                          {order._id}
+                        <a
+                          href={`/shipper/order/${order.orderId}`}
+                          className="link"
+                        >
+                          {order.orderId}
                         </a>
                       </td>
+                      <td>{order.isPaid ? <>Paid</> : <>Not Paid</>}</td>
                       <td>
-                        {order.isPaid ? (
-                          <>Paid</>
-                        ) : (
-                          <>
-                            {order.cancelOrder ? <>Canceled</> : <>Not Paid</>}
-                          </>
-                        )}
-                      </td>
-                      <td>
-                        {order.isPaid
-                          ? moment(order.paidAt).calendar()
-                          : moment(order.createAt).calendar()}
+                        {order.isDelivered
+                          ? moment(order.deliveredAt).calendar()
+                          : <>Not Delivery</>}
                       </td>
                       <td>${order.totalPrice}</td>
                     </tr>
@@ -76,4 +65,4 @@ const Orders = (props) => {
     </div>
   );
 };
-export default Orders;
+export default OrdersShipper;

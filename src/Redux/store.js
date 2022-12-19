@@ -14,11 +14,21 @@ import {
 } from "./Reducer/userReducers";
 import { cartReducer } from "./Reducer/CartReducers";
 import {
+  orderCancelReducer,
   orderCreateReducer,
   orderDetailsReducer,
   orderListMyReducer,
   orderPayReducer,
 } from "./Reducer/OrderReducers";
+import {
+  orderListShipperReducer,
+  shipperConfirmedReducer,
+  shipperDeliveredReducer,
+  shipperListOrdersReducer,
+  shipperPickedReducer,
+  shipperRegisterReducer,
+  shipperShippingReducer,
+} from "./Reducer/shipperReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -33,6 +43,14 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
+  shipperRegister: shipperRegisterReducer,
+  orderListShipper: shipperListOrdersReducer,
+  shipperConfirm: shipperConfirmedReducer,
+  shipperPick: shipperPickedReducer,
+  shipperShipping: shipperShippingReducer,
+  shipperDeliver: shipperDeliveredReducer,
+  shipperOrderList: orderListShipperReducer,
+  orderCancel: orderCancelReducer,
 });
 
 // cart

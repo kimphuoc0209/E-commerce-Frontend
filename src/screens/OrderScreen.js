@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "./../components/Header";
-// import { PayPalButton } from "react-paypal-button-v2";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails } from "../Redux/Action/OrderActions";
+import { cancelOrder, getOrderDetails } from "../Redux/Action/OrderActions";
 import Loading from "../components/LoadingError/Loading";
 import Message from "../components/LoadingError/Error";
 import moment from "moment";
@@ -109,6 +108,11 @@ const OrderScreen = () => {
     }
   }, [dispatch, paypalDispatch, userInfo, orderId, successPay, order]);
 
+  const cancelHandler = () => {
+    dispatch(cancelOrder(order));
+    dispatch(getOrderDetails(orderId));
+  };
+
   return (
     <>
       <Header />
@@ -187,19 +191,67 @@ const OrderScreen = () => {
                       {order.shippingAddress.address},
                     </p>
                     <p>Phone number: {order.shippingAddress.postalCode}</p>
-                    {order.isDelivered ? (
+
+                    {order.isVerified ? (
                       <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
-                          Delivered on {moment(order.deliveredAt).calendar()}
+                          Order Confirmed At:{" "}
+                          {moment(order.verifiedAt).format(
+                            "MMM Do YYYY, h:mm:ss A"
+                          )}
                         </p>
                       </div>
                     ) : (
-                      <div className="bg-danger p-2 col-12">
+                      <>
+                        {order.cancelOrder ? (
+                          <div className="bg-danger p-2 col-12">
+                            <p className="text-white text-center text-sm-start">
+                              Order Canceled
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="bg-danger p-2 col-12">
+                            <p className="text-white text-center text-sm-start">
+                              Not Confirm
+                            </p>
+                          </div>
+                        )}
+                      </>
+                    )}
+                    {order.confirmShipping ? (
+                      <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
-                          Not Delivered
+                          Picking Up Order
                         </p>
                       </div>
-                    )}
+                    ) : null}
+                    {order.isPicked ? (
+                      <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                          Successful Pick Up At:{" "}
+                          {moment(order.pickedAt).format(
+                            "MMM Do YYYY, h:mm:ss A"
+                          )}
+                        </p>
+                      </div>
+                    ) : null}
+                    {order.isShipping ? (
+                      <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                          Delivery In Progress
+                        </p>
+                      </div>
+                    ) : null}
+                    {order.isDelivered ? (
+                      <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                          Delivery Successful At:{" "}
+                          {moment(order.deliveredAt).format(
+                            "MMM Do YYYY, h:mm:ss A"
+                          )}
+                        </p>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -266,7 +318,9 @@ const OrderScreen = () => {
                     </tr>
                   </tbody>
                 </table>
-                {!order.isPaid && order.paymentMethod === "Paypal" ? (
+                {!order.isPaid &&
+                order.paymentMethod === "Paypal" &&
+                !order.cancelOrder ? (
                   <>
                     {loadingPay ? (
                       <Loading />
@@ -280,21 +334,15 @@ const OrderScreen = () => {
                     )}
                   </>
                 ) : null}
-                {/* {!order.isPaid ? (
+                {!order.isPaid && !order.cancelOrder ? (
                   <Link
                     to="#"
-                    // onClick={() => cancelHandler(order._id)}
+                    onClick={cancelHandler}
                     className="btn btn-outline-danger p-3 pb-3 mb-3 col-md-6 w-100"
                   >
                     <p>Cancel Order</p>
                   </Link>
-                ) : (
-                  <div className="bg-danger p-3 pb-3 mb-3 col-12">
-                    <p className="text-white text-center text-sm-cener ">
-                      Canceled
-                    </p>
-                  </div>
-                )} */}
+                ) : null}
               </div>
             </div>
           </>
