@@ -51,7 +51,7 @@ const ShipperOrder = () => {
 
   const confirmedHandler = () => {
     dispatch(shipperConfirmOrder(order));
-    dispatch(getOrderDetails(orderId));
+    // dispatch(getOrderDetails(orderId));
   };
 
   const pickedHandler = () => {
@@ -61,7 +61,7 @@ const ShipperOrder = () => {
 
   const shippingHandler = () => {
     dispatch(shipperShippingOrder(order));
-    dispatch(getOrderDetails(orderId));
+    // dispatch(getOrderDetails(orderId));
   };
 
   const deliveredHandler = () => {
@@ -276,7 +276,7 @@ const ShipperOrder = () => {
                     </table>
                     {!order.confirmShipping && (
                       <>
-                        {/* {loadingConfirmed && <Loading />} */}
+                        {loadingConfirmed && <Loading />}
                         <button
                           onClick={confirmedHandler}
                           className="btn btn-success col-12"
@@ -287,7 +287,7 @@ const ShipperOrder = () => {
                     )}
                     {!order.isPicked && order.confirmShipping && (
                       <>
-                        {/* {loadingConfirmed && <Loading />} */}
+                        {loadingPicked && <Loading />}
                         <button
                           onClick={pickedHandler}
                           className="btn btn-success col-12"
@@ -298,7 +298,7 @@ const ShipperOrder = () => {
                     )}
                     {!order.isShipping && order.isPicked && (
                       <>
-                        {/* {loadingConfirmed && <Loading />} */}
+                        {loadingShipping && <Loading />}
                         <button
                           onClick={shippingHandler}
                           className="btn btn-success col-12"
@@ -309,7 +309,7 @@ const ShipperOrder = () => {
                     )}
                     {!order.isDelivered && order.isShipping && (
                       <>
-                        {/* {loadingConfirmed && <Loading />} */}
+                        {loading && <Loading />}
                         <button
                           onClick={deliveredHandler}
                           className="btn btn-success col-12"
